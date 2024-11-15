@@ -1,10 +1,19 @@
-﻿using NumberToWordsAPI.Services;
+﻿using Microsoft.Extensions.Logging;
+using Moq;
+using NumberToWordsAPI.Services;
 
 namespace NumberToWordsTest
 {
     public class NumberToWordsServiceTest
     {
-        private readonly NumberToWordsService _numberToWordsService = new();
+        private readonly Mock<ILogger<NumberToWordsService>> _logger;
+        private readonly NumberToWordsService _numberToWordsService;
+
+        public NumberToWordsServiceTest()
+        {
+            _logger = new Mock<ILogger<NumberToWordsService>>();
+            _numberToWordsService = new NumberToWordsService(_logger.Object);
+        }
 
         [Fact]
         public void ConvertNumberToWords_WholeDollars_ReturnsWords()
@@ -14,10 +23,10 @@ namespace NumberToWordsTest
             string expected = "ONE HUNDRED AND TWENTY-THREE DOLLARS AND ZERO CENTS";
 
             // Act
-            string result = _numberToWordsService.Convert(input);
+            var result = _numberToWordsService.Convert(input);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.Result);
         }
 
         [Fact]
@@ -28,10 +37,10 @@ namespace NumberToWordsTest
             string expected = "ONE HUNDRED AND TWENTY-THREE DOLLARS AND FORTY-FIVE CENTS";
 
             // Act
-            string result = _numberToWordsService.Convert(input);
+            var result = _numberToWordsService.Convert(input);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.Result);
         }
 
         [Fact]
@@ -42,10 +51,10 @@ namespace NumberToWordsTest
             string expected = "ZERO DOLLARS AND ZERO CENTS";
 
             // Act
-            string result = _numberToWordsService.Convert(input);
+            var result = _numberToWordsService.Convert(input);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.Result);
         }
 
         [Fact]
@@ -56,10 +65,10 @@ namespace NumberToWordsTest
             string expected = "ZERO DOLLARS AND TWENTY-FIVE CENTS";
 
             // Act
-            string result = _numberToWordsService.Convert(input);
+            var result = _numberToWordsService.Convert(input);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.Result);
         }
 
         [Fact]
@@ -70,10 +79,10 @@ namespace NumberToWordsTest
             string expected = "ONE MILLION TWO HUNDRED AND THIRTY-FOUR THOUSAND FIVE HUNDRED AND SIXTY-SEVEN DOLLARS AND EIGHTY-NINE CENTS";
 
             // Act
-            string result = _numberToWordsService.Convert(input);
+            var result = _numberToWordsService.Convert(input);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.Result);
         }
 
         [Fact]
@@ -84,10 +93,10 @@ namespace NumberToWordsTest
             string expected = "SEVEN DOLLARS AND ZERO CENTS";
 
             // Act
-            string result = _numberToWordsService.Convert(number);
+            var result = _numberToWordsService.Convert(number);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.Result);
         }
 
         [Fact]
@@ -98,10 +107,10 @@ namespace NumberToWordsTest
             string expected = "FORTY-FIVE DOLLARS AND ZERO CENTS";
 
             // Act
-            string result = _numberToWordsService.Convert(number);
+            var result = _numberToWordsService.Convert(number);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.Result);
         }
 
         [Fact]
@@ -112,10 +121,10 @@ namespace NumberToWordsTest
             string expected = "THREE HUNDRED DOLLARS AND ZERO CENTS";
 
             // Act
-            string result = _numberToWordsService.Convert(number);
+            var result = _numberToWordsService.Convert(number);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.Result);
         }
 
         [Fact]
@@ -126,10 +135,10 @@ namespace NumberToWordsTest
             string expected = "ONE THOUSAND TWO HUNDRED AND THIRTY-FOUR DOLLARS AND ZERO CENTS";
 
             // Act
-            string result = _numberToWordsService.Convert(number);
+            var result = _numberToWordsService.Convert(number);
 
             // Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.Result);
         }
     }
 }
