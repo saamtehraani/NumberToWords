@@ -1,0 +1,19 @@
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field class="full-width">
+    <mat-label>Number</mat-label>
+    <input matInput type="number" formControlName="number" placeholder="Please enter a number" required />
+    <mat-error *ngIf="number?.hasError('required')">
+      Number is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="number?.hasError('number') && !number?.hasError('required')">
+      Please enter a valid number
+    </mat-error>
+  </mat-form-field>
+
+  <span>{{result?.result}}</span>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Submit
+  </button>
+</form>

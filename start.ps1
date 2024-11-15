@@ -1,0 +1,1 @@
+wt -d "./src/NumberToWordsAPI" dotnet run `; sp -d "./src/AngularUI" npm.cmd start
